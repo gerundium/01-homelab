@@ -1,0 +1,42 @@
+---
+- tags: virtualbox
+  when: not item.ignore
+  block:
+    
+    - name: Create VMs
+      command: VBoxManage createvm --name "{{ item.hostname }}" --ostype Linux_64  --register
+      loop: "{{ vms }}"
+      changed_when: false
+    
+    - name: Reconfigure VMs
+      command: VBoxManage modifyvm "{{ item.hostname }}" --cpus "{{ item.cpus }}" --memory "{{ item.ram }}" --vram 12
+      loop: "{{ vms }}"
+    
+    - name: Configure Network
+      command: VBoxManage modifyvm "{{ item.hostname }}" --nic1 bridged --bridgeadapter1 "{{ bridge_interface }}" --macaddress1 "{{ item.mac }}" --nicpromisc1 allow-vms
+      loop: "{{ vms }}"
+
+    - name: Attach Storage
+      command: VBoxManage storagectl "{{ item.hostname }}" --name IDE --add ide
+      loop: "{{ vms }}"
+
+    - name: Attach Storage
+      command: VBoxManage storageattach "{{ item.hostname }}" --storagectl IDE --port 0 --device 0 --type dvddrive --medium "{{ homedir }}/Downloads/metal-amd64-iscsi-1.6.0.iso"
+      loop: "{{ vms }}"
+
+    # --------------------    
+    - name: Configure Storage
+      command: VBoxManage createhd --filename '{{ homedir }}/VirtualBox VMs/{{ item.hostname }}/{{ item.hostname }}.vdi' --size 20000 --format VDI
+      loop: "{{ vms }}"
+
+    - name: Configure Storage
+      command: VBoxManage storagectl "{{ item.hostname }}" --name "SATA Controller" --add sata --bootable on
+      loop: "{{ vms }}"
+      
+    - name: Attach Storage
+      command: VBoxManage storageattach "{{ item.hostname }}" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium '{{ homedir }}/VirtualBox VMs/{{ item.hostname }}/{{ item.hostname }}.vdi'
+      loop: "{{ vms }}"
+
+    - name: Start VMs
+      command: VBoxManage startvm "{{ item.hostname }}" --type headless
+      loop: "{{ vms }}"

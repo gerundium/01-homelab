@@ -1,0 +1,7 @@
+---
+- name: Provision Virtualbox environment
+  hosts: provisioning
+  gather_facts: false
+  roles:
+    - { role: create_virtualbox_vms, when: "create|default(true)|bool == true" }
+    - { role: delete_virtualbox_vms, when: "delete|default(false)|bool == true" }

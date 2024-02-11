@@ -1,0 +1,4 @@
+.vscode/**
+!inventory/example/** */
+ansible.cfg
+makefile

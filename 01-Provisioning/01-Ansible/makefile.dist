@@ -1,0 +1,9 @@
+# variables
+
+# default slug
+.PHONY: default
+
+# functions
+
+default:
+	@ansible-playbook -i inventory/example/hosts.ini --diff site.yaml

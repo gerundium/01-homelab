@@ -1,0 +1,32 @@
+# -- 
+# Specify the hostname and mac address for the vms
+# You have to configure your dns records manually (out of scope)
+# Same goes for a static dhcp lease that binds an ip address to a mac address (out of scope)
+vms:
+  - hostname: "demo-talos-1.example.com"
+    mac: "0800272727EE"
+    cpus: 2
+    ram: 4096
+    ignore: false # false triggeres role
+  - hostname: "demo-talos-1.example.com"
+    mac: "0800273477A7"
+    cpus: 2
+    ram: 4096
+    ignore: false # false triggeres role
+  - hostname: "demo-talos-1.example.com"
+    mac: "0800272A92F4"
+    cpus: 2
+    ram: 4096
+    ignore: false # false triggeres role
+# -- 
+
+# --
+# Path to your home directory. Will be used to locate the directories "VirtualBox VMs" and "Downloads"
+# e.g. "/home/username"
+homedir: "/path/to/your/home_directory"
+# --
+
+# -- 
+# The nic that will be used for bridge network
+bridge_interface: wlp0s20f3
+# -- 

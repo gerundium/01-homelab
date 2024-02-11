@@ -1,0 +1,3 @@
+- name: Delete VMs
+  command: VBoxManage unregistervm --delete "{{ item.hostname }}"
+  loop: "{{ vms }}"
