@@ -7,3 +7,12 @@
 
 default:
 	@ansible-playbook -i inventory/example/hosts.ini --diff site.yaml
+
+stop:
+	@ansible-playbook -i inventory/example/hosts.ini -e 'stop=true' --diff site.yaml
+
+start:
+	@ansible-playbook -i inventory/example/hosts.ini -e 'start=true' --diff site.yaml
+
+delete:
+	@ansible-playbook -i inventory/example/hosts.ini -e 'delete=true' --diff site.yaml
