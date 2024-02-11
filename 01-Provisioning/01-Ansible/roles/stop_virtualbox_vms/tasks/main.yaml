@@ -1,0 +1,4 @@
+- name: Stop VMs
+  command: VBoxManage controlvm "{{ item.hostname }}" acpipowerbutton
+  loop: "{{ vms }}"
+  ignore_errors: true

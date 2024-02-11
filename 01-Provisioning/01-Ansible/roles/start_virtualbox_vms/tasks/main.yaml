@@ -1,0 +1,4 @@
+---
+- name: Start VMs
+  command: VBoxManage startvm "{{ item.hostname }}" --type headless
+  loop: "{{ vms }}"

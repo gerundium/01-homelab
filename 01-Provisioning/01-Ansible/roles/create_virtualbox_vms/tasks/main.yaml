@@ -21,10 +21,9 @@
       loop: "{{ vms }}"
 
     - name: Attach Storage
-      command: VBoxManage storageattach "{{ item.hostname }}" --storagectl IDE --port 0 --device 0 --type dvddrive --medium "{{ homedir }}/Downloads/metal-amd64-iscsi-1.6.0.iso"
+      command: VBoxManage storageattach "{{ item.hostname }}" --storagectl IDE --port 0 --device 0 --type dvddrive --medium "{{ homedir }}/Downloads/{{ isofile }}"
       loop: "{{ vms }}"
 
-    # --------------------    
     - name: Configure Storage
       command: VBoxManage createhd --filename '{{ homedir }}/VirtualBox VMs/{{ item.hostname }}/{{ item.hostname }}.vdi' --size 20000 --format VDI
       loop: "{{ vms }}"
