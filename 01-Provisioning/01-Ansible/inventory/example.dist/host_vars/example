@@ -26,6 +26,11 @@ vms:
 homedir: "/path/to/your/home_directory"
 # --
 
+# --
+# Filename of talos iso
+isofile: "metal-amd64-1.6.4.iso"
+# --
+
 # -- 
 # The nic that will be used for bridge network
 bridge_interface: wlp0s20f3
