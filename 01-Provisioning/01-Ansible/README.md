@@ -69,6 +69,9 @@ Customize some variables to fit your setup.
 2. Apply your changes to
    1. Ansible/inventory/yourClusterName/hosts.ini
    2. Ansible/inventory/yourClusterName/host_vars/example # You have to rename example to the name of your Virtualbox box or ansible will not apply the variables on that box!
+      - The variable "***ignore***" has an important role. It's a simple contol switch to tag vms that should be created. 
+      - If vms are tagged as "ignore: **false**" the playbook will try to provision that vm.
+      - If you want to add new vms you can simply extend the vms block and set the **ignore** variable, on already existing vms, to true.
 
 #### 2.2 Ansible
 Customize the Ansible settings:
@@ -89,3 +92,11 @@ One last step. Run a bash terminal and change into the directory where the makef
 ```bash 
 make
 ```
+
+### 4. Make usage
+
+|Command|Description|
+|--|--|
+|make start|Start stopped vms (specified in inventory)|
+|make stop|Stop all vms (specified in inventory)|
+|make delete|Delete vms (specified in inventory) (must be stopped already)|
